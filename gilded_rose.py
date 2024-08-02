@@ -88,4 +88,3 @@ class Legendary(Item):
 
     def update_quality(self):
         self.quality = 80
-
