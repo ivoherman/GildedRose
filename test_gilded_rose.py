@@ -7,6 +7,7 @@ from gilded_rose import (
     Ripening,
     BackstagePass,
     Legendary,
+    Conjured,
     GildedRose
 )
 
@@ -107,6 +108,26 @@ class LegendaryTest(unittest.TestCase):
 
         for item in self.items:
             self.assertEqual(item.quality, 80)
+
+
+class ConjuredTest(unittest.TestCase):
+    def test_quality_decreases_with_2(self):
+        self.items = [Conjured("Conjured", 10, 10)]
+        gilded_rose = GildedRose(self.items)
+        gilded_rose.update_quality()
+        self.assertEqual(self.items[0].quality, 8)
+
+    def test_quality_decreases_with_4_after_sellin_date(self):
+        self.items = [Conjured("Conjured", 0, 10)]
+        gilded_rose = GildedRose(self.items)
+        gilded_rose.update_quality()
+        self.assertEqual(self.items[0].quality, 6)
+
+    def test_quality_cannot_be_negative(self):
+        self.items = [Conjured("Conjured", 10, 0)]
+        gilded_rose = GildedRose(self.items)
+        gilded_rose.update_quality()
+        self.assertEqual(self.items[0].quality, 0)
 
 
 if __name__ == '__main__':
