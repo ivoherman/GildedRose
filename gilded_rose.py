@@ -6,8 +6,12 @@ class GildedRose(object):
         self.items = items
 
     def update_quality(self):
+        """
+        Update quality and sell_in for items
+        """
         for item in self.items:
             item.update_quality()
+            item.update_sell_in()
 
 
 class Item:
@@ -21,40 +25,55 @@ class Item:
 
 
 class Regular(Item):
-    """Items which have no special traits"""
+    """Base Items which have no special traits"""
 
     def __init__(self, name, sell_in, quality):
         super().__init__(name, sell_in, quality)
 
     def update_quality(self):
-        if self.sell_in < 0:
+        """
+        Method to update quality
+        If sell_in <= 0 days -> quality decrease of 2
+        If sell_in > 0 days -> quality decrease of 1
+        Min quality = 0
+        """
+        if self.sell_in <= 0:
             self.quality -= 2
-        elif self.quality < 1:
-            self.quality = 0
         else:
             self.quality -= 1
+        
+        if self.quality < 0:
+            self.quality = 0
 
+    def update_sell_in(self):
+        """
+        Method to update sell_in value
+        """
         self.sell_in -= 1
 
 
-class Ripening(Item):
+class Ripening(Regular):
     """Items which increase in quality"""
 
     def __init__(self, name, sell_in, quality):
         super().__init__(name, sell_in, quality)
 
     def update_quality(self):
-        if self.quality >= 50:
-            self.quality = 50
-        elif self.sell_in < 1:
+        """
+        Method to update quality
+        If sell_in <= 0 days -> quality increase of 2
+        If sell_in > 0 days quality increase of 1
+        Max quality = 50
+        """
+        if self.sell_in <= 0:
             self.quality += 2
         else:
             self.quality += 1
 
-        self.sell_in -= 1
+        if self.quality >= 50:
+            self.quality = 50
 
-
-class BackstagePass(Item):
+class BackstagePass(Regular):
     """
     Items which increase in quality untill sell_in date expires
     """
@@ -63,11 +82,19 @@ class BackstagePass(Item):
         super().__init__(name, sell_in, quality)
 
     def update_quality(self):
+        """
+        Method to update quality
+        If sell_in < 1 days -> quality = 0
+        If sell_in <= 5 days quality increase of 3
+        If sell_in <= 10 days quality increase of 2
+        Else quality increase of 1
+        Max quality = 50
+        """
         if self.sell_in < 1:
             self.quality = 0
-        elif self.sell_in < 6:
+        elif self.sell_in <= 5:
             self.quality += 3
-        elif self.sell_in < 11:
+        elif self.sell_in <= 10:
             self.quality += 2
         else:
             self.quality += 1
@@ -75,10 +102,7 @@ class BackstagePass(Item):
         if self.quality >= 50:
             self.quality = 50
 
-        self.sell_in -= 1
-
-
-class Legendary(Item):
+class Legendary(Regular):
     """
     Items with static quality and sell_in date
     """
@@ -87,22 +111,37 @@ class Legendary(Item):
         super().__init__(name, sell_in, quality)
 
     def update_quality(self):
+        """
+        Method to update quality
+        Quality is a static value of 80
+        """
         self.quality = 80
+    
+    def update_sell_in(self):
+        """
+        Method to update sell_in value
+        Legendary items have a static sell_in value
+        """
 
 
-class Conjured(Item):
+class Conjured(Regular):
     """
-    Items with a increased quality decrease"""
+    Items with a doubled quality decrease
+    """
     def __init__(self, name, sell_in, quality):
         super().__init__(name, sell_in, quality)
 
     def update_quality(self):
-        if self.sell_in < 1:
+        """
+        Method to update quality
+        If sell_in <= 0 days -> quality decrease of 4
+        If sell_in > 0 days -> quality decrease of 2
+        Min quality = 0
+        """
+        if self.sell_in <= 0:
             self.quality -= 4
         else:
             self.quality -= 2
 
-        if self.quality < 1:
+        if self.quality <= 0:
             self.quality = 0
-
-        self.sell_in -= 1
