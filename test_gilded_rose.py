@@ -18,8 +18,7 @@ class RegularTest(unittest.TestCase):
         self.assertEqual(self.items[0].quality, 9)
 
     def test_quality_decreases_with_2_after_sellin_date(self):
-        self.items = []
-        self.items.append(Item("Random", -1, 10))
+        self.items = [Item("Random", -1, 10)]
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 8)
@@ -33,23 +32,19 @@ class RegularTest(unittest.TestCase):
 
 class BrieTest(unittest.TestCase):
     def test_increasing_quality_before_sellin_date(self):
-        self.items = []
-        self.items.append(Item("Aged Brie", 10, 10))
-        gilded_rose = GildedRose(Item("Aged Brie", 0, 10))
+        self.items = [Item("Aged Brie", 10, 10)]
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 11)
 
     def test_increasing_quality_by_2_after_sellin_date(self):
-        self.items = []
-        self.items.append(Item("Aged Brie", 0, 10))
+        self.items = [Item("Aged Brie", 0, 10)]
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 12)
 
     def test_maximum_quality(self):
-        self.items = []
-        self.items.append(Item("Aged Brie", 0, 50))
+        self.items = [Item("Aged Brie", 0, 50)]
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 50)
@@ -57,36 +52,31 @@ class BrieTest(unittest.TestCase):
 
 class BackstagePassesTest(unittest.TestCase):
     def test_increasing_quality_with_sellin_higher_then_10(self):
-        self.items = []
-        self.items.append(Item("Backstage passes to a TAFKAL80ETC concert", 15, 10))
+        self.items = [Item("Backstage passes to a TAFKAL80ETC concert", 15, 10)]
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 11)
 
     def test_increasing_quality_with_sellin_between_10_and_5(self):
-        self.items = []
-        self.items.append(Item("Backstage passes to a TAFKAL80ETC concert", 10, 10))
+        self.items = [Item("Backstage passes to a TAFKAL80ETC concert", 10, 10)]
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 12)
     
     def test_increasing_quality_with_sellin_5_or_lower(self):
-        self.items = []
-        self.items.append(Item("Backstage passes to a TAFKAL80ETC concert", 5, 10))
+        self.items = [Item("Backstage passes to a TAFKAL80ETC concert", 5, 10)]
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 13)
 
     def test_quality_0_when_sellin_0(self):
-        self.items = []
-        self.items.append(Item("Backstage passes to a TAFKAL80ETC concert", 0, 0))
+        self.items = [Item("Backstage passes to a TAFKAL80ETC concert", 0, 0)]
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 0)
 
     def test_quality_cannot_be_negative(self):
-        self.items = []
-        self.items.append(Item("Backstage passes to a TAFKAL80ETC concert", -1, 0))
+        self.items = [Item("Backstage passes to a TAFKAL80ETC concert", -1, 0)]
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 0)
