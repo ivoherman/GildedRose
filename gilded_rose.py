@@ -97,12 +97,12 @@ class Conjured(Item):
         super().__init__(name, sell_in, quality)
 
     def update_quality(self):
-        if self.sell_in < 1 :
+        if self.sell_in < 1:
             self.quality -= 4
         else:
             self.quality -= 2
 
         if self.quality < 1:
             self.quality = 0
-    
+
         self.sell_in -= 1
