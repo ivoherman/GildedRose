@@ -2,7 +2,7 @@
 import unittest
 
 from gilded_rose import (
-    Item, 
+    Item,
     Regular,
     Ripening,
     BackstagePass,
