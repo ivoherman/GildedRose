@@ -2,7 +2,6 @@
 from __future__ import print_function
 
 from gilded_rose import (
-    Item, 
     Regular,
     Ripening,
     BackstagePass,
