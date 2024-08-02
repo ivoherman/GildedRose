@@ -52,6 +52,13 @@ class Regular(Item):
     def __init__(self, name, sell_in, quality):
         super().__init__(name, sell_in, quality)
 
+    def update_quality(self):
+        if self.sell_in < 0 :
+            self.quality = 0
+        else:
+            self.quality -= 1
+
+        self.sell_in -= 1
 
 class Ripening(Item):
     """Items which increase in quality"""
@@ -59,6 +66,15 @@ class Ripening(Item):
     def __init__(self, name, sell_in, quality):
         super().__init__(name, sell_in, quality)
 
+    def update_quality(self):
+        if self.quality >= 50:
+            self.quality = 50
+        elif (self.sell_in < 1) :
+            self.quality += 2
+        else:
+            self.quality += 1
+
+        self.sell_in -= 1
 
 class BackstagePass(Item):
     """
@@ -68,6 +84,20 @@ class BackstagePass(Item):
     def __init__(self, name, sell_in, quality):
         super().__init__(name, sell_in, quality)
 
+    def update_quality(self):
+        if(self.sell_in < 1):
+            self.quality = 0
+        elif(self.sell_in < 6):
+            self.quality += 3
+        elif self.sell_in < 11 :
+            self.quality += 2
+        else:
+            self.quality += 1
+    
+        if(self.quality >= 50):
+            self.quality = 50
+        
+        self.sell_in -= 1
 
 class Legendary(Item):
     """
@@ -76,4 +106,7 @@ class Legendary(Item):
 
     def __init__(self, name, sell_in, quality):
         super().__init__(name, sell_in, quality)
+    
+    def update_quality(self):
+        self.quality = 80
 
