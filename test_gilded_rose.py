@@ -3,10 +3,12 @@ import unittest
 
 from gilded_rose import Item, GildedRose
 
+
 class ItemTest(unittest.TestCase):
     def test_repr_func(self):
         item = Item("Sulfuras, Hand of Ragnaros", 0, 80)
         self.assertEqual(repr(item), "Sulfuras, Hand of Ragnaros, 0, 80")
+
 
 class RegularTest(unittest.TestCase):
     def test_decreasing_quality(self):
@@ -27,6 +29,7 @@ class RegularTest(unittest.TestCase):
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 0)
+
 
 class BrieTest(unittest.TestCase):
     def test_increasing_quality_before_sellin_date(self):
@@ -50,6 +53,7 @@ class BrieTest(unittest.TestCase):
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 50)
+
 
 class BackstagePassesTest(unittest.TestCase):
     def test_increasing_quality_with_sellin_higher_then_10(self):
@@ -86,6 +90,7 @@ class BackstagePassesTest(unittest.TestCase):
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 0)
+
 
 class LegendaryTest(unittest.TestCase):
     def test_quality_is_always_80(self):
