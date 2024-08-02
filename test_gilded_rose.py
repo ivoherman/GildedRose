@@ -106,7 +106,7 @@ class BackstagePassesTest(unittest.TestCase):
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 50)
-    
+
     def test_sell_in_decrease(self):
         self.items = [BackstagePass("Backstage passes to a TAFKAL80ETC concert", 5, 50)]
         gilded_rose = GildedRose(self.items)

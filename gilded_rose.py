@@ -41,7 +41,7 @@ class Regular(Item):
             self.quality -= 2
         else:
             self.quality -= 1
-        
+
         if self.quality < 0:
             self.quality = 0
 
@@ -73,6 +73,7 @@ class Ripening(Regular):
         if self.quality >= 50:
             self.quality = 50
 
+
 class BackstagePass(Regular):
     """
     Items which increase in quality untill sell_in date expires
@@ -102,6 +103,7 @@ class BackstagePass(Regular):
         if self.quality >= 50:
             self.quality = 50
 
+
 class Legendary(Regular):
     """
     Items with static quality and sell_in date
@@ -116,7 +118,7 @@ class Legendary(Regular):
         Quality is a static value of 80
         """
         self.quality = 80
-    
+
     def update_sell_in(self):
         """
         Method to update sell_in value
