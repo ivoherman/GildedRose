@@ -27,7 +27,7 @@ class Regular(Item):
         super().__init__(name, sell_in, quality)
 
     def update_quality(self):
-        if self.sell_in < 0 :
+        if self.sell_in < 0:
             self.quality -= 2
         elif self.quality < 1:
             self.quality = 0
@@ -71,11 +71,12 @@ class BackstagePass(Item):
             self.quality += 2
         else:
             self.quality += 1
-    
+
         if self.quality >= 50:
             self.quality = 50
-        
+
         self.sell_in -= 1
+
 
 class Legendary(Item):
     """
@@ -84,6 +85,7 @@ class Legendary(Item):
 
     def __init__(self, name, sell_in, quality):
         super().__init__(name, sell_in, quality)
-    
+
     def update_quality(self):
         self.quality = 80
+
