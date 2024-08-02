@@ -36,7 +36,7 @@ class RegularTest(unittest.TestCase):
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 0)
-    
+
     def test_sell_in_decrease(self):
         self.items = [Regular("Elixir of the Mongoose", 8, 0)]
         gilded_rose = GildedRose(self.items)
