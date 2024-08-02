@@ -7,33 +7,7 @@ class GildedRose(object):
 
     def update_quality(self):
         for item in self.items:
-            if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
-                if item.quality > 0:
-                    if item.name != "Sulfuras, Hand of Ragnaros":
-                        item.quality = item.quality - 1
-            else:
-                if item.quality < 50:
-                    item.quality = item.quality + 1
-                    if item.name == "Backstage passes to a TAFKAL80ETC concert":
-                        if item.sell_in < 11:
-                            if item.quality < 50:
-                                item.quality = item.quality + 1
-                        if item.sell_in < 6:
-                            if item.quality < 50:
-                                item.quality = item.quality + 1
-            if item.name != "Sulfuras, Hand of Ragnaros":
-                item.sell_in = item.sell_in - 1
-            if item.sell_in < 0:
-                if item.name != "Aged Brie":
-                    if item.name != "Backstage passes to a TAFKAL80ETC concert":
-                        if item.quality > 0:
-                            if item.name != "Sulfuras, Hand of Ragnaros":
-                                item.quality = item.quality - 1
-                    else:
-                        item.quality = item.quality - item.quality
-                else:
-                    if item.quality < 50:
-                        item.quality = item.quality + 1
+            item.update_quality()
 
 
 class Item:
@@ -44,3 +18,73 @@ class Item:
 
     def __repr__(self):
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
+
+
+class Regular(Item):
+    """Items which have no special traits"""
+
+    def __init__(self, name, sell_in, quality):
+        super().__init__(name, sell_in, quality)
+
+    def update_quality(self):
+        if self.sell_in < 0:
+            self.quality -= 2
+        elif self.quality < 1:
+            self.quality = 0
+        else:
+            self.quality -= 1
+
+        self.sell_in -= 1
+
+
+class Ripening(Item):
+    """Items which increase in quality"""
+
+    def __init__(self, name, sell_in, quality):
+        super().__init__(name, sell_in, quality)
+
+    def update_quality(self):
+        if self.quality >= 50:
+            self.quality = 50
+        elif self.sell_in < 1:
+            self.quality += 2
+        else:
+            self.quality += 1
+
+        self.sell_in -= 1
+
+
+class BackstagePass(Item):
+    """
+    Items which increase in quality untill sell_in date expires
+    """
+
+    def __init__(self, name, sell_in, quality):
+        super().__init__(name, sell_in, quality)
+
+    def update_quality(self):
+        if self.sell_in < 1:
+            self.quality = 0
+        elif self.sell_in < 6:
+            self.quality += 3
+        elif self.sell_in < 11:
+            self.quality += 2
+        else:
+            self.quality += 1
+
+        if self.quality >= 50:
+            self.quality = 50
+
+        self.sell_in -= 1
+
+
+class Legendary(Item):
+    """
+    Items with static quality and sell_in date
+    """
+
+    def __init__(self, name, sell_in, quality):
+        super().__init__(name, sell_in, quality)
+
+    def update_quality(self):
+        self.quality = 80
