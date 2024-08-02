@@ -44,3 +44,36 @@ class Item:
 
     def __repr__(self):
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
+
+
+class Regular(Item):
+    """Items which have no special traits"""
+
+    def __init__(self, name, sell_in, quality):
+        super().__init__(name, sell_in, quality)
+
+
+class Ripening(Item):
+    """Items which increase in quality"""
+
+    def __init__(self, name, sell_in, quality):
+        super().__init__(name, sell_in, quality)
+
+
+class BackstagePass(Item):
+    """
+    Items which increase in quality untill sell_in date expires
+    """
+
+    def __init__(self, name, sell_in, quality):
+        super().__init__(name, sell_in, quality)
+
+
+class Legendary(Item):
+    """
+    Items with static quality and sell_in date
+    """
+
+    def __init__(self, name, sell_in, quality):
+        super().__init__(name, sell_in, quality)
+
