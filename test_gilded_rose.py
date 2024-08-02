@@ -62,7 +62,7 @@ class BackstagePassesTest(unittest.TestCase):
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 12)
-    
+
     def test_increasing_quality_with_sellin_5_or_lower(self):
         self.items = [Item("Backstage passes to a TAFKAL80ETC concert", 5, 10)]
         gilded_rose = GildedRose(self.items)
@@ -89,11 +89,12 @@ class LegendaryTest(unittest.TestCase):
         self.items.append(Item("Sulfuras, Hand of Ragnaros", 0, 80))
         self.items.append(Item("Sulfuras, Hand of Ragnaros", -1, 80))
         gilded_rose = GildedRose(self.items)
-        
+
         gilded_rose.update_quality()
 
         for item in self.items:
             self.assertEqual(item.quality, 80)
+
 
 if __name__ == '__main__':
     unittest.main()
