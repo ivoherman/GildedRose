@@ -37,6 +37,12 @@ class RegularTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 0)
 
+    def test_sell_in_decrease(self):
+        self.items = [Regular("Elixir of the Mongoose", 8, 0)]
+        gilded_rose = GildedRose(self.items)
+        gilded_rose.update_quality()
+        self.assertEqual(self.items[0].sell_in, 7)
+
 
 class RipeningTest(unittest.TestCase):
     def test_increasing_quality_before_sellin_date(self):
@@ -56,6 +62,12 @@ class RipeningTest(unittest.TestCase):
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 50)
+
+    def test_sell_in_decrease(self):
+        self.items = [Ripening("Aged Brie", 10, 50)]
+        gilded_rose = GildedRose(self.items)
+        gilded_rose.update_quality()
+        self.assertEqual(self.items[0].sell_in, 9)
 
 
 class BackstagePassesTest(unittest.TestCase):
@@ -95,6 +107,12 @@ class BackstagePassesTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 50)
 
+    def test_sell_in_decrease(self):
+        self.items = [BackstagePass("Backstage passes to a TAFKAL80ETC concert", 5, 50)]
+        gilded_rose = GildedRose(self.items)
+        gilded_rose.update_quality()
+        self.assertEqual(self.items[0].sell_in, 4)
+
 
 class LegendaryTest(unittest.TestCase):
     def test_quality_is_always_80(self):
@@ -108,6 +126,12 @@ class LegendaryTest(unittest.TestCase):
 
         for item in self.items:
             self.assertEqual(item.quality, 80)
+
+    def test_sell_in_decrease(self):
+        self.items = [Legendary("Sulfuras, Hand of Ragnaros", 10, 80)]
+        gilded_rose = GildedRose(self.items)
+        gilded_rose.update_quality()
+        self.assertEqual(self.items[0].sell_in, 10)
 
 
 class ConjuredTest(unittest.TestCase):
@@ -128,6 +152,12 @@ class ConjuredTest(unittest.TestCase):
         gilded_rose = GildedRose(self.items)
         gilded_rose.update_quality()
         self.assertEqual(self.items[0].quality, 0)
+
+    def test_sell_in_does_not_change(self):
+        self.items = [Conjured("Conjured", 10, 0)]
+        gilded_rose = GildedRose(self.items)
+        gilded_rose.update_quality()
+        self.assertEqual(self.items[0].sell_in, 9)
 
 
 if __name__ == '__main__':
